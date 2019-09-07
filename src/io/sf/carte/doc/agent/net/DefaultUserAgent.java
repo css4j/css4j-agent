@@ -267,6 +267,7 @@ public class DefaultUserAgent extends AbstractUserAgent {
 			 * @param time
 			 *            the time of loading, in milliseconds.
 			 */
+			@Override
 			public void setLoadingTime(long time) {
 				this.loadingTime = time;
 			}
@@ -316,6 +317,7 @@ public class DefaultUserAgent extends AbstractUserAgent {
 			 * @param time
 			 *            the time of loading, in milliseconds.
 			 */
+			@Override
 			public void setLoadingTime(long time) {
 				this.loadingTime = time;
 			}
