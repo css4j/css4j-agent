@@ -36,7 +36,7 @@ import io.sf.carte.doc.style.css.CSSDocument;
  */
 abstract public class ResourceDownloader<C> extends Thread {
 
-	private URL url;
+	private final URL url;
 	protected C nativeContent = null;
 	protected List<DownloadListener<C>> listeners = new LinkedList<DownloadListener<C>>();
 	private String contentType = null;

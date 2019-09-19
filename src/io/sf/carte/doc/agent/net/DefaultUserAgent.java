@@ -50,7 +50,7 @@ import nu.validator.htmlparser.dom.HtmlDocumentBuilder;
  */
 public class DefaultUserAgent extends AbstractUserAgent {
 
-	private CSSDOMImplementation domImpl;
+	private final CSSDOMImplementation domImpl;
 	private EntityResolver resolver = createEntityResolver();
 
 	protected DefaultUserAgent(EnumSet<Parser2.Flag> parserFlags, boolean setDefaultSheet) {
