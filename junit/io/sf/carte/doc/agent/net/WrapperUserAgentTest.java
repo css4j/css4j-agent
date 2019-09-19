@@ -25,7 +25,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.junit.Test;
 
 import io.sf.carte.doc.DocumentException;
-import io.sf.carte.doc.agent.MockURLFactory;
+import io.sf.carte.doc.agent.MockURLConnectionFactory;
 import io.sf.carte.doc.style.css.CSSDocument;
 import io.sf.carte.doc.style.css.om.DOMCSSStyleSheetFactory;
 import io.sf.carte.doc.style.css.om.DOMCSSStyleSheetFactory.WrapperUserAgent;
@@ -48,10 +48,10 @@ public class WrapperUserAgentTest {
 			throw new DocumentException("Error creating a document builder", e);
 		}
 		agent.setDocumentBuilder(docbuilder);
-		CSSDocument doc = agent.readURL(new URL(MockURLFactory.SAMPLE_URL));
+		CSSDocument doc = agent.readURL(new URL(MockURLConnectionFactory.SAMPLE_URL));
 		assertNotNull(doc);
 		assertEquals("http://www.example.com/", doc.getBaseURI());
-		assertEquals(MockURLFactory.SAMPLE_URL, doc.getDocumentURI());
+		assertEquals(MockURLConnectionFactory.SAMPLE_URL, doc.getDocumentURI());
 		assertEquals("same-origin", doc.getReferrerPolicy());
 	}
 
