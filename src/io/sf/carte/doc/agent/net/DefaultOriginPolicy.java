@@ -15,7 +15,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,12 +45,8 @@ public class DefaultOriginPolicy implements OriginPolicy {
 	}
 
 	private static void readSuffixes() {
-		BufferedReader re = null;
-		try {
-			re = new BufferedReader(
-					new InputStreamReader(openStream("/io/sf/carte/doc/agent/net/public_suffix_list.dat"), "utf-8"));
-		} catch (UnsupportedEncodingException e) {
-		}
+		BufferedReader re = new BufferedReader(new InputStreamReader(
+				openStream("/io/sf/carte/doc/agent/net/public_suffix_list.dat"), StandardCharsets.UTF_8));
 		String line = null;
 		try {
 			while ((line = re.readLine()) != null) {

@@ -17,6 +17,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.nio.charset.StandardCharsets;
 import java.util.EnumSet;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -139,7 +140,8 @@ public class DefaultUserAgent extends AbstractUserAgent {
 		}
 		try {
 			is = openInputStream(con);
-			InputSource source = new InputSource(AgentUtil.inputStreamToReader(is, conType, contentEncoding, "utf-8"));
+			InputSource source = new InputSource(AgentUtil.inputStreamToReader(is, conType, contentEncoding,
+					StandardCharsets.UTF_8));
 			htmlDoc = (MyDocument) builder.parse(source);
 		} catch (IOException e) {
 			throw e;
@@ -150,7 +152,6 @@ public class DefaultUserAgent extends AbstractUserAgent {
 				is.close();
 			}
 		}
-		//htmlDoc.getDocumentElement().normalize();
 		htmlDoc.setDocumentURI(url.toExternalForm());
 		htmlDoc.setLoadingTime(time);
 		// Check for preferred style
