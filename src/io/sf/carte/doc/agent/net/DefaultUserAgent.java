@@ -39,7 +39,7 @@ import io.sf.carte.doc.dom.DOMDocument;
 import io.sf.carte.doc.dom.HTMLDocument;
 import io.sf.carte.doc.dom.XMLDocumentBuilder;
 import io.sf.carte.doc.style.css.CSSDocument;
-import io.sf.carte.doc.style.css.nsac.Parser2;
+import io.sf.carte.doc.style.css.nsac.Parser;
 import io.sf.carte.doc.xml.dtd.DefaultEntityResolver;
 import nu.validator.htmlparser.dom.HtmlDocumentBuilder;
 
@@ -54,7 +54,7 @@ public class DefaultUserAgent extends AbstractUserAgent {
 	private final CSSDOMImplementation domImpl;
 	private EntityResolver resolver = createEntityResolver();
 
-	protected DefaultUserAgent(EnumSet<Parser2.Flag> parserFlags, boolean setDefaultSheet) {
+	protected DefaultUserAgent(EnumSet<Parser.Flag> parserFlags, boolean setDefaultSheet) {
 		super(parserFlags);
 		setOriginPolicy(DefaultOriginPolicy.getInstance());
 		domImpl = new MyDOMImplementation(getParserFlags());
@@ -70,7 +70,7 @@ public class DefaultUserAgent extends AbstractUserAgent {
 	 *            if true, a default user agent HTML style sheet is loaded.
 	 * @return the user agent.
 	 */
-	public static UserAgent createUserAgent(EnumSet<Parser2.Flag> parserFlags, boolean setDefaultSheet) {
+	public static UserAgent createUserAgent(EnumSet<Parser.Flag> parserFlags, boolean setDefaultSheet) {
 		return new DefaultUserAgent(parserFlags, setDefaultSheet);
 	}
 
@@ -198,7 +198,7 @@ public class DefaultUserAgent extends AbstractUserAgent {
 
 	class MyDOMImplementation extends CSSDOMImplementation {
 
-		MyDOMImplementation(EnumSet<Parser2.Flag> parserFlags) {
+		MyDOMImplementation(EnumSet<Parser.Flag> parserFlags) {
 			super(parserFlags);
 		}
 
