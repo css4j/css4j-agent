@@ -19,14 +19,13 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.w3c.dom.css.CSSFontFaceRule;
-import org.w3c.dom.css.CSSPrimitiveValue;
-import org.w3c.dom.css.CSSStyleDeclaration;
-import org.w3c.dom.css.CSSValue;
-import org.w3c.dom.css.CSSValueList;
-
 import io.sf.carte.doc.agent.IllegalOriginException;
 import io.sf.carte.doc.style.css.CSSDocument;
+import io.sf.carte.doc.style.css.CSSTypedValue;
+import io.sf.carte.doc.style.css.CSSValue;
+import io.sf.carte.doc.style.css.ExtendedCSSFontFaceRule;
+import io.sf.carte.doc.style.css.ExtendedCSSStyleDeclaration;
+import io.sf.carte.doc.style.css.property.ValueList;
 
 /**
  * Asynchronous downloading of an embedded resource of a given type.
@@ -46,7 +45,7 @@ abstract public class ResourceDownloader<C> extends Thread {
 		this.url = url;
 	}
 
-	protected ResourceDownloader(CSSFontFaceRule rule) throws IllegalArgumentException {
+	protected ResourceDownloader(ExtendedCSSFontFaceRule rule) throws IllegalArgumentException {
 		URL[] urlist = extractURL(rule.getStyle());
 		if (urlist == null) {
 			throw new IllegalArgumentException("No URLs to download font");
@@ -54,7 +53,7 @@ abstract public class ResourceDownloader<C> extends Thread {
 		this.url = urlist[0];
 	}
 
-	private static URL[] extractURL(CSSStyleDeclaration style) throws IllegalArgumentException {
+	private static URL[] extractURL(ExtendedCSSStyleDeclaration style) throws IllegalArgumentException {
 		CSSValue src = style.getPropertyCSSValue("src");
 		if (src == null) {
 			return null;
@@ -63,20 +62,21 @@ abstract public class ResourceDownloader<C> extends Thread {
 	}
 
 	private static URL[] extractURL(CSSValue src) {
-		short type = src.getCssValueType();
-		if (type == CSSValue.CSS_PRIMITIVE_VALUE) {
-			if (((CSSPrimitiveValue) src).getPrimitiveType() == CSSPrimitiveValue.CSS_URI) {
+		CSSValue.CssType type = src.getCssValueType();
+		if (type == CSSValue.CssType.TYPED) {
+			if (src.getPrimitiveType() == CSSValue.Type.URI) {
+				CSSTypedValue typed = (CSSTypedValue) src;
 				URL url;
 				try {
-					url = new URL(((CSSPrimitiveValue) src).getStringValue());
+					url = new URL(typed.getStringValue());
 				} catch (Exception e) {
 					throw new IllegalArgumentException("Bad URL to download font", e);
 				}
 				return new URL[]{url};
 			}
-		} else if (type == CSSValue.CSS_VALUE_LIST) {
+		} else if (type == CSSValue.CssType.LIST) {
 			LinkedList<URL> urlist = new LinkedList<URL>();
-			CSSValueList list = (CSSValueList) src;
+			ValueList list = (ValueList) src;
 			for (int i = 0; i < list.getLength(); i++) {
 				URL[] url = extractURL(list.item(i));
 				if (url != null) {
