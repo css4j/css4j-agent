@@ -21,10 +21,10 @@ import java.util.List;
 
 import io.sf.carte.doc.agent.IllegalOriginException;
 import io.sf.carte.doc.style.css.CSSDocument;
+import io.sf.carte.doc.style.css.CSSStyleDeclaration;
 import io.sf.carte.doc.style.css.CSSTypedValue;
 import io.sf.carte.doc.style.css.CSSValue;
 import io.sf.carte.doc.style.css.ExtendedCSSFontFaceRule;
-import io.sf.carte.doc.style.css.ExtendedCSSStyleDeclaration;
 import io.sf.carte.doc.style.css.property.ValueList;
 
 /**
@@ -53,7 +53,7 @@ abstract public class ResourceDownloader<C> extends Thread {
 		this.url = urlist[0];
 	}
 
-	private static URL[] extractURL(ExtendedCSSStyleDeclaration style) throws IllegalArgumentException {
+	private static URL[] extractURL(CSSStyleDeclaration style) throws IllegalArgumentException {
 		CSSValue src = style.getPropertyCSSValue("src");
 		if (src == null) {
 			return null;
