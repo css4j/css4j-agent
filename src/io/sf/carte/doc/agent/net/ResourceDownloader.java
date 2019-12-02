@@ -21,10 +21,10 @@ import java.util.List;
 
 import io.sf.carte.doc.agent.IllegalOriginException;
 import io.sf.carte.doc.style.css.CSSDocument;
+import io.sf.carte.doc.style.css.CSSFontFaceRule;
 import io.sf.carte.doc.style.css.CSSStyleDeclaration;
 import io.sf.carte.doc.style.css.CSSTypedValue;
 import io.sf.carte.doc.style.css.CSSValue;
-import io.sf.carte.doc.style.css.ExtendedCSSFontFaceRule;
 import io.sf.carte.doc.style.css.property.ValueList;
 
 /**
@@ -45,7 +45,7 @@ abstract public class ResourceDownloader<C> extends Thread {
 		this.url = url;
 	}
 
-	protected ResourceDownloader(ExtendedCSSFontFaceRule rule) throws IllegalArgumentException {
+	protected ResourceDownloader(CSSFontFaceRule rule) throws IllegalArgumentException {
 		URL[] urlist = extractURL(rule.getStyle());
 		if (urlist == null) {
 			throw new IllegalArgumentException("No URLs to download font");
