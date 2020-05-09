@@ -7,20 +7,20 @@
   <parent>
 	<groupId>io.sf.carte</groupId>
 	<artifactId>css4j-dist</artifactId>
-	<version>1.0.4</version>
+	<version>1.0.5</version>
   </parent>
   <groupId>io.sf.carte</groupId>
   <artifactId>css4j-agent</artifactId>
   <packaging>jar</packaging>
   <dependencies>
-    <dependency>
+	<dependency>
 		<groupId>io.sf.carte</groupId>
 		<artifactId>css4j</artifactId>
 		<version>${project.parent.version}</version>
 		<type>jar</type>
 		<scope>compile</scope>
 		<optional>false</optional>
-    </dependency>
+	</dependency>
 	<dependency>
 		<groupId>io.sf.carte</groupId>
 		<artifactId>css4j</artifactId>
@@ -39,12 +39,12 @@
   </dependencies>
   <!-- Build Settings -->
   <build>
-    <directory>${project.basedir}/build</directory>
-    <outputDirectory>${project.build.directory}/bin</outputDirectory>
-    <finalName>${project.artifactId}-${project.version}</finalName>
-    <testOutputDirectory>${project.build.directory}/testbin</testOutputDirectory>
-    <sourceDirectory>${project.basedir}/src</sourceDirectory>
-    <testSourceDirectory>${project.basedir}/junit</testSourceDirectory>
+	<directory>${project.basedir}/build</directory>
+	<outputDirectory>${project.build.directory}/bin</outputDirectory>
+	<finalName>${project.artifactId}-${project.version}</finalName>
+	<testOutputDirectory>${project.build.directory}/testbin</testOutputDirectory>
+	<sourceDirectory>${project.basedir}/src</sourceDirectory>
+	<testSourceDirectory>${project.basedir}/junit</testSourceDirectory>
 	<plugins>
 		<plugin>
 			<groupId>org.apache.maven.plugins</groupId>
