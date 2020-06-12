@@ -27,12 +27,16 @@ public class OriginPolicyTest {
 		assertTrue(policy.isTopLevelSuffix("uk"));
 		assertTrue(policy.isTopLevelSuffix("co.uk"));
 		assertTrue(policy.isTopLevelSuffix("com.es"));
+		assertTrue(policy.isTopLevelSuffix("nom.br"));
+		assertTrue(policy.isTopLevelSuffix("ck"));
+		assertTrue(policy.isTopLevelSuffix("edu.ck"));
 		assertFalse(policy.isTopLevelSuffix("ibm.com"));
 		assertFalse(policy.isTopLevelSuffix("nic.uk"));
 		assertFalse(policy.isTopLevelSuffix("educ.ar"));
 		assertFalse(policy.isTopLevelSuffix("example.gob.ar"));
 		assertFalse(policy.isTopLevelSuffix("example.co.uk"));
 		assertFalse(policy.isTopLevelSuffix("example.es"));
+		assertFalse(policy.isTopLevelSuffix("www.ck"));
 	}
 
 	@Test
@@ -41,6 +45,8 @@ public class OriginPolicyTest {
 		assertEquals("example.co.uk", policy.domainFromHostname("www.example.co.uk"));
 		assertEquals("example.co.uk", policy.domainFromHostname("example.co.uk"));
 		assertEquals("example.co.uk", policy.domainFromHostname("www.sub.example.co.uk"));
+		assertEquals("example.edu.ck", policy.domainFromHostname("www.example.edu.ck"));
+		assertEquals("www.ck", policy.domainFromHostname("www.ck"));
 	}
 
 }
