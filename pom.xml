@@ -48,46 +48,21 @@
 	<plugins>
 		<plugin>
 			<groupId>org.apache.maven.plugins</groupId>
-			<artifactId>maven-source-plugin</artifactId>
-			<version>3.2.0</version>
-			<executions>
-				<execution>
-					<id>attach-sources</id>
-					<goals>
-						<goal>jar-no-fork</goal>
-					</goals>
-				</execution>
-			</executions>
-		</plugin>
-		<plugin>
-			<groupId>org.apache.maven.plugins</groupId>
 			<artifactId>maven-javadoc-plugin</artifactId>
-			<version>3.1.0</version>
 			<configuration>
 				<source>7</source>
-				<quiet>true</quiet>
-				<doclint>none</doclint>
 			</configuration>
-			<executions>
-				<execution>
-					<id>attach-javadocs</id>
-					<goals>
-						<goal>jar</goal>
-					</goals>
-				</execution>
-			</executions>
 		</plugin>
 		<plugin>
 			<groupId>org.apache.maven.plugins</groupId>
 			<artifactId>maven-jar-plugin</artifactId>
-			<version>3.2.0</version>
 			<configuration>
-			<archive>
-				<manifestEntries>
-					<Automatic-Module-Name>io.sf.carte.css4j.agent.net</Automatic-Module-Name>
-				</manifestEntries>
-				<addMavenDescriptor>false</addMavenDescriptor>
-			</archive>
+				<archive>
+					<manifestEntries>
+						<Automatic-Module-Name>io.sf.carte.css4j.agent.net</Automatic-Module-Name>
+					</manifestEntries>
+					<addMavenDescriptor>false</addMavenDescriptor>
+				</archive>
 			</configuration>
 		</plugin>
 	</plugins>
@@ -115,27 +90,6 @@
 		</testResource>
 	</testResources>
   </build>
-  <reporting>
-	<plugins>
-		<plugin>
-			<groupId>org.apache.maven.plugins</groupId>
-			<artifactId>maven-javadoc-plugin</artifactId>
-			<version>3.1.0</version>
-			<configuration>
-			  <reportOutputDirectory>${project.build.directory}/doc</reportOutputDirectory>
-			  <destDir>api</destDir>
-			</configuration>
-			<reportSets>
-				<reportSet>
-					<id>default</id>
-					<reports>
-					  <report>javadoc</report>
-					</reports>
-				</reportSet>
-			</reportSets>
-		</plugin>
-	</plugins>
-  </reporting>
   <scm>
 	<connection>scm:git:https://github.com/css4j/css4j-agent.git</connection>
 	<url>https://github.com/css4j/css4j-agent</url>
