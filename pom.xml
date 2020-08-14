@@ -62,7 +62,7 @@
 			<configuration>
 				<links>
 					<link>https://docs.oracle.com/javase/8/docs/api/</link>
-					<link>https://css4j.github.io/api/2.0/</link>
+					<link>https://css4j.github.io/api/2.1/</link>
 					<link>https://about.validator.nu/htmlparser/apidocs/</link>
 				</links>
 			</configuration>
