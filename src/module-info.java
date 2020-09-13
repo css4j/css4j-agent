@@ -13,5 +13,6 @@ module io.sf.carte.css4j.agent.net {
 	exports io.sf.carte.doc.agent.net;
 
 	requires transitive io.sf.carte.css4j;
+	requires static io.sf.carte.xml.dtd;
 	requires htmlparser;
 }

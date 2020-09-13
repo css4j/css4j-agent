@@ -32,7 +32,6 @@ import org.xml.sax.SAXException;
 
 import io.sf.carte.doc.DocumentException;
 import io.sf.carte.doc.agent.AbstractUserAgent;
-import io.sf.carte.doc.agent.AgentUtil;
 import io.sf.carte.doc.agent.UserAgent;
 import io.sf.carte.doc.dom.CSSDOMImplementation;
 import io.sf.carte.doc.dom.DOMDocument;
@@ -41,6 +40,7 @@ import io.sf.carte.doc.dom.XMLDocumentBuilder;
 import io.sf.carte.doc.style.css.CSSDocument;
 import io.sf.carte.doc.style.css.nsac.Parser;
 import io.sf.carte.doc.xml.dtd.DefaultEntityResolver;
+import io.sf.carte.util.agent.AgentUtil;
 import nu.validator.htmlparser.dom.HtmlDocumentBuilder;
 
 /**
