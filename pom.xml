@@ -3,7 +3,6 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
                       http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <!-- The Basics -->
   <parent>
 	<groupId>io.sf.carte</groupId>
 	<artifactId>css4j-dist</artifactId>
@@ -28,7 +27,6 @@
 		<type>test-jar</type>
 		<scope>test</scope>
 	</dependency>
-	<!-- https://mvnrepository.com/artifact/nu.validator/htmlparser -->
 	<dependency>
 		<groupId>nu.validator</groupId>
 		<artifactId>htmlparser</artifactId>
@@ -37,7 +35,7 @@
 		<optional>false</optional>
 	</dependency>
 	<!-- Not required for compiling, but this dependency was optional in the
-		core module, and it is mandatory for user agents. So we set as a
+		core module and it is mandatory for user agents. So we set as a
 		transitive dependency here. -->
 	<dependency>
 		<groupId>org.slf4j</groupId>
@@ -47,7 +45,6 @@
 		<optional>false</optional>
 	</dependency>
   </dependencies>
-  <!-- Build Settings -->
   <build>
 	<directory>${project.basedir}/build</directory>
 	<outputDirectory>${project.build.directory}/bin</outputDirectory>
@@ -115,4 +112,7 @@
 		<url>https://maven.pkg.github.com/css4j/css4j-agent</url>
 	</repository>
   </distributionManagement>
+  <issueManagement>
+	<url>https://github.com/css4j/css4j-agent/issues</url>
+  </issueManagement>
 </project>
