@@ -32,7 +32,6 @@ import org.xml.sax.SAXException;
 
 import io.sf.carte.doc.DocumentException;
 import io.sf.carte.doc.agent.AbstractUserAgent;
-import io.sf.carte.doc.agent.UserAgent;
 import io.sf.carte.doc.dom.CSSDOMImplementation;
 import io.sf.carte.doc.dom.DOMDocument;
 import io.sf.carte.doc.dom.HTMLDocument;
@@ -70,7 +69,7 @@ public class DefaultUserAgent extends AbstractUserAgent {
 	 *            if true, a default user agent HTML style sheet is loaded.
 	 * @return the user agent.
 	 */
-	public static UserAgent createUserAgent(EnumSet<Parser.Flag> parserFlags, boolean setDefaultSheet) {
+	public static DefaultUserAgent createUserAgent(EnumSet<Parser.Flag> parserFlags, boolean setDefaultSheet) {
 		return new DefaultUserAgent(parserFlags, setDefaultSheet);
 	}
 
