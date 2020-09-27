@@ -66,7 +66,7 @@
 			<artifactId>maven-javadoc-plugin</artifactId>
 			<configuration>
 				<links>
-					<link>https://docs.oracle.com/javase/8/docs/api/</link>
+					<link>https://docs.oracle.com/en/java/javase/11/docs/api/</link>
 					<link>https://css4j.github.io/api/3/</link>
 					<link>https://about.validator.nu/htmlparser/apidocs/</link>
 				</links>
