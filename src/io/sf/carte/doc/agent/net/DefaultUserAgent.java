@@ -50,6 +50,8 @@ import nu.validator.htmlparser.dom.HtmlDocumentBuilder;
  */
 public class DefaultUserAgent extends AbstractUserAgent {
 
+	private static final long serialVersionUID = 1L;
+
 	private final CSSDOMImplementation domImpl;
 	private EntityResolver resolver = createEntityResolver();
 
@@ -197,6 +199,8 @@ public class DefaultUserAgent extends AbstractUserAgent {
 
 	class MyDOMImplementation extends CSSDOMImplementation {
 
+		private static final long serialVersionUID = 1L;
+
 		MyDOMImplementation(EnumSet<Parser.Flag> parserFlags) {
 			super(parserFlags);
 		}
@@ -226,6 +230,8 @@ public class DefaultUserAgent extends AbstractUserAgent {
 		}
 
 		class MyHTMLDocument extends HTMLDocument implements MyDocument {
+
+			private static final long serialVersionUID = 1L;
 
 			private long loadingTime;
 
@@ -285,6 +291,8 @@ public class DefaultUserAgent extends AbstractUserAgent {
 		}
 
 		class MyXMLDocument extends DOMDocument implements MyDocument {
+
+			private static final long serialVersionUID = 1L;
 
 			private long loadingTime;
 
