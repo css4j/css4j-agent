@@ -132,6 +132,7 @@ public class DefaultUserAgent extends AbstractUserAgent {
 		DocumentBuilder builder;
 		if (isHtml) {
 			builder = new HtmlDocumentBuilder(domImpl);
+			((HtmlDocumentBuilder) builder).setIgnoringComments(false);
 		} else {
 			XMLDocumentBuilder xmlbuilder = new XMLDocumentBuilder(domImpl);
 			xmlbuilder.setIgnoreElementContentWhitespace(true);
