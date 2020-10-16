@@ -44,7 +44,7 @@
 	</dependency>
 	<!-- Not required for compiling, but this dependency was optional in the
 		core module and it is mandatory for user agents. So we set as a
-		transitive dependency here. -->
+		mandatory dependency here. -->
 	<dependency>
 		<groupId>org.slf4j</groupId>
 		<artifactId>slf4j-api</artifactId>
