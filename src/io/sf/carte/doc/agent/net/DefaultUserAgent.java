@@ -161,7 +161,7 @@ public class DefaultUserAgent extends AbstractUserAgent {
 		NodeList list = htmlDoc.getElementsByTagName("meta");
 		int listL = list.getLength();
 		for (int i = listL - 1; i >= 0; i--) {
-			if ("Default-Style".equalsIgnoreCase(((Element) list.item(i)).getAttribute("http-equiv"))) {
+			if ("default-style".equalsIgnoreCase(((Element) list.item(i)).getAttribute("http-equiv"))) {
 				String metaDefStyle = ((Element) list.item(i)).getAttribute("content");
 				if (metaDefStyle.length() == 0) {
 					// Per HTML4 spec § 14.3.2:
