@@ -150,6 +150,7 @@ abstract public class ResourceDownloader<C> extends Thread {
 		} else {
 			con = getURL().openConnection();
 		}
+		con.setConnectTimeout(60000);
 		contentType = con.getContentType();
 		return con.getInputStream();
 	}
