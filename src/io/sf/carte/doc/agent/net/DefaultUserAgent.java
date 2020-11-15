@@ -22,7 +22,6 @@ import java.util.EnumSet;
 
 import javax.xml.parsers.DocumentBuilder;
 
-import org.w3c.dom.DOMException;
 import org.w3c.dom.DocumentType;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -207,27 +206,13 @@ public class DefaultUserAgent extends AbstractUserAgent {
 		}
 
 		@Override
-		public DOMDocument createDocument(String namespaceURI, String qualifiedName, DocumentType doctype)
-				throws DOMException {
-			DOMDocument document;
-			/*
-			 * Trick: if namespaceURI is null, create an HTML document, if it is the empty string, an
-			 * XML one
-			 */
-			if (namespaceURI == null || namespaceURI.equals(HTMLDocument.HTML_NAMESPACE_URI)
-					|| (doctype != null && "html".equalsIgnoreCase(doctype.getName()))) {
-				document = new MyHTMLDocument(doctype);
-			} else {
-				document = new MyXMLDocument(doctype);
-			}
-			if (!getStrictErrorChecking()) {
-				document.setStrictErrorChecking(false);
-			}
-			// Create and append a document element, if provided
-			if (qualifiedName != null && qualifiedName.length() != 0) {
-				document.appendChild(document.createElementNS(namespaceURI, qualifiedName));
-			}
-			return document;
+		protected DOMDocument createXMLDocument(DocumentType doctype) {
+			return new MyXMLDocument(doctype);
+		}
+
+		@Override
+		protected HTMLDocument createHTMLDocument(DocumentType doctype) {
+			return new MyHTMLDocument(doctype);
 		}
 
 		class MyHTMLDocument extends HTMLDocument implements MyDocument {
