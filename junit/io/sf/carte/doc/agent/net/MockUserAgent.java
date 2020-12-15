@@ -18,16 +18,14 @@ import java.util.EnumSet;
 
 import io.sf.carte.doc.agent.DeviceFactory;
 import io.sf.carte.doc.agent.MockURLConnectionFactory;
-import io.sf.carte.doc.style.css.nsac.Parser.Flag;
+import io.sf.carte.doc.style.css.nsac.Parser2;
 import io.sf.carte.doc.style.css.om.DummyDeviceFactory;
 
 class MockUserAgent extends DefaultUserAgent {
 
-	private static final long serialVersionUID = 1L;
-
 	private final MockURLConnectionFactory urlFactory = new MockURLConnectionFactory();
 
-	public MockUserAgent(EnumSet<Flag> parserFlags, boolean setDefaultSheet) {
+	public MockUserAgent(EnumSet<Parser2.Flag> parserFlags, boolean setDefaultSheet) {
 		super(parserFlags, setDefaultSheet);
 		DeviceFactory deviceFactory = new DummyDeviceFactory();
 		getDOMImplementation().setDeviceFactory(deviceFactory);

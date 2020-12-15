@@ -19,8 +19,6 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.EnumSet;
 
-import javax.xml.parsers.DocumentBuilder;
-
 import org.w3c.dom.DocumentType;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -39,7 +37,8 @@ import io.sf.carte.doc.dom.XMLDocumentBuilder;
 import io.sf.carte.doc.style.css.CSSDocument;
 import io.sf.carte.doc.style.css.nsac.Parser2;
 import io.sf.carte.doc.xml.dtd.DefaultEntityResolver;
-import nu.validator.htmlparser.dom.HtmlDocumentBuilder;
+import nu.validator.htmlparser.common.XmlViolationPolicy;
+import nu.validator.htmlparser.sax.HtmlParser;
 
 /**
  * Default User Agent.
@@ -127,15 +126,15 @@ public class DefaultUserAgent extends AbstractUserAgent {
 			}
 			isHtml = mimeType.equals("text/html");
 		}
-		DocumentBuilder builder;
+		XMLDocumentBuilder builder = new XMLDocumentBuilder(domImpl);
 		if (isHtml) {
-			builder = new HtmlDocumentBuilder(domImpl);
-			((HtmlDocumentBuilder) builder).setIgnoringComments(false);
+			HtmlParser parser = new HtmlParser(XmlViolationPolicy.ALTER_INFOSET);
+			parser.setReportingDoctype(true);
+			parser.setCommentPolicy(XmlViolationPolicy.ALLOW);
+			builder.setXMLReader(parser);
 		} else {
-			XMLDocumentBuilder xmlbuilder = new XMLDocumentBuilder(domImpl);
-			xmlbuilder.setIgnoreElementContentWhitespace(true);
-			xmlbuilder.setEntityResolver(resolver);
-			builder = xmlbuilder;
+			builder.setIgnoreElementContentWhitespace(true);
+			builder.setEntityResolver(resolver);
 		}
 		try {
 			is = openInputStream(con);
@@ -158,7 +157,7 @@ public class DefaultUserAgent extends AbstractUserAgent {
 		NodeList list = htmlDoc.getElementsByTagName("meta");
 		int listL = list.getLength();
 		for (int i = listL - 1; i >= 0; i--) {
-			if ("Default-Style".equalsIgnoreCase(((Element) list.item(i)).getAttribute("http-equiv"))) {
+			if ("default-style".equalsIgnoreCase(((Element) list.item(i)).getAttribute("http-equiv"))) {
 				String metaDefStyle = ((Element) list.item(i)).getAttribute("content");
 				if (metaDefStyle.length() != 0) {
 					// Per HTML4 spec § 14.3.2:

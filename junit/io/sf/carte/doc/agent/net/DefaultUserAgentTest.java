@@ -29,7 +29,7 @@ import org.w3c.dom.DOMStringList;
 import io.sf.carte.doc.DocumentException;
 import io.sf.carte.doc.agent.MockURLConnectionFactory;
 import io.sf.carte.doc.style.css.CSSDocument;
-import io.sf.carte.doc.style.css.nsac.Parser;
+import io.sf.carte.doc.style.css.nsac.Parser2;
 
 public class DefaultUserAgentTest {
 
@@ -37,7 +37,7 @@ public class DefaultUserAgentTest {
 
 	@Before
 	public void setUp() throws DocumentException, ParserConfigurationException {
-		EnumSet<Parser.Flag> parserFlags = EnumSet.of(Parser.Flag.STARHACK, Parser.Flag.IEVALUES, Parser.Flag.IEPRIO);
+		EnumSet<Parser2.Flag> parserFlags = EnumSet.of(Parser2.Flag.STARHACK, Parser2.Flag.IEVALUES, Parser2.Flag.IEPRIO);
 		agent = new MockUserAgent(parserFlags, false);
 		agent.setOriginPolicy(DefaultOriginPolicy.getInstance());
 	}
