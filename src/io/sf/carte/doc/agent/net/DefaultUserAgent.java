@@ -132,6 +132,7 @@ public class DefaultUserAgent extends AbstractUserAgent {
 			parser.setReportingDoctype(true);
 			parser.setCommentPolicy(XmlViolationPolicy.ALLOW);
 			parser.setXmlnsPolicy(XmlViolationPolicy.ALLOW);
+			builder.setHTMLProcessing(true);
 			builder.setXMLReader(parser);
 		} else {
 			builder.setIgnoreElementContentWhitespace(true);
