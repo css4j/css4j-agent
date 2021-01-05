@@ -131,7 +131,6 @@ public class DefaultUserAgent extends AbstractUserAgent {
 		XMLDocumentBuilder builder = new XMLDocumentBuilder(domImpl);
 		if (isHtml) {
 			HtmlParser parser = new HtmlParser(XmlViolationPolicy.ALTER_INFOSET);
-			parser.setReportingDoctype(true);
 			parser.setCommentPolicy(XmlViolationPolicy.ALLOW);
 			parser.setXmlnsPolicy(XmlViolationPolicy.ALLOW);
 			builder.setHTMLProcessing(true);
