@@ -1,0 +1,27 @@
+plugins {
+	id 'css4j.java-conventions'
+	id 'de.jjohannes.extra-java-module-info'
+}
+
+dependencies {
+	api project(':css4j')
+	api project(':xml-dtd')
+	api "nu.validator:htmlparser:${htmlparserVersion}"
+	api "org.slf4j:slf4j-api:${slf4jVersion}"
+	testImplementation project(path: ':css4j', configuration: 'tests')
+}
+
+extraJavaModuleInfo {
+	failOnMissingModuleInfo.set(false)
+	automaticModule("htmlparser-${htmlparserVersion}.jar", 'htmlparser')
+}
+
+description = 'css4j-agent'
+
+publishing.publications.maven(MavenPublication).pom {
+	description = "CSS4J agent module"
+}
+
+java {
+	withJavadocJar()
+}
