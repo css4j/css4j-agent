@@ -7,6 +7,11 @@ dependencies {
 	api project(':css4j')
 	api project(':xml-dtd')
 	api "nu.validator:htmlparser:${htmlparserVersion}"
+	/*
+	 * The next dependency is not required for compiling, but this one was
+	 * optional in the core module and it is mandatory for user agents. So it is
+	 * set as a mandatory dependency here.
+	 */
 	api "org.slf4j:slf4j-api:${slf4jVersion}"
 	testImplementation project(path: ':css4j', configuration: 'tests')
 }
