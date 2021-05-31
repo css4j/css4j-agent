@@ -5,7 +5,7 @@ plugins {
 
 dependencies {
 	api project(':css4j')
-	api project(':xml-dtd')
+	api "io.sf.carte:xml-dtd:${xmldtdVersion}"
 	api "nu.validator:htmlparser:${htmlparserVersion}"
 	/*
 	 * The next dependency is not required for compiling, but this one was
