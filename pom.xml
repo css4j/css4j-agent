@@ -6,7 +6,7 @@
   <parent>
 	<groupId>io.sf.carte</groupId>
 	<artifactId>css4j-dist</artifactId>
-	<version>3.5.0</version>
+	<version>3.5.1</version>
   </parent>
   <groupId>io.sf.carte</groupId>
   <artifactId>css4j-agent</artifactId>
@@ -23,7 +23,7 @@
 	<dependency>
 		<groupId>io.sf.carte</groupId>
 		<artifactId>xml-dtd</artifactId>
-		<version>${project.parent.version}</version>
+		<version>[3.5.1,)</version>
 		<type>jar</type>
 		<scope>compile</scope>
 		<optional>false</optional>
@@ -48,7 +48,7 @@
 	<dependency>
 		<groupId>org.slf4j</groupId>
 		<artifactId>slf4j-api</artifactId>
-		<version>1.7.30</version>
+		<version>[1.7.28,)</version>
 		<scope>compile</scope>
 		<optional>false</optional>
 	</dependency>
