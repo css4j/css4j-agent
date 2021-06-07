@@ -23,6 +23,8 @@ extraJavaModuleInfo {
 
 description = 'css4j-agent'
 
+compileJava.dependsOn tasks.jvmVersionAttribute
+
 publishing.publications.maven(MavenPublication).pom {
 	description = "CSS4J agent module"
 }
