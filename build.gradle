@@ -1,34 +1,224 @@
 plugins {
-	id 'css4j.java-conventions'
-	id 'de.jjohannes.extra-java-module-info'
+	id 'java-library'
+	id 'maven-publish'
+	id 'de.jjohannes.extra-java-module-info' version '0.9'
 }
 
+group = 'io.sf.carte'
+version = '3.6.0'
+
+description = 'css4j-agent'
+
 dependencies {
-	api project(':css4j')
-	api "io.sf.carte:xml-dtd:${xmldtdVersion}"
-	api "nu.validator:htmlparser:${htmlparserVersion}"
+	api('io.sf.carte:css4j') {
+		version {
+			strictly '[3.4.0,4.0['
+			prefer '3.6.0'
+		}
+	}
+	api('io.sf.carte:xml-dtd') {
+		version {
+			require '[3.4.0,)'
+			prefer '3.5.1'
+		}
+	}
+	api 'nu.validator:htmlparser:1.4.16'
 	/*
-	 * The next dependency is not required for compiling, but this one was
-	 * optional in the core module and it is mandatory for user agents. So it is
-	 * set as a mandatory dependency here.
+	 * The next dependency is not required for compiling, but it was optional
+	 * in the core module and is mandatory for user agents. So it is set as a
+	 * mandatory dependency here.
 	 */
-	api "org.slf4j:slf4j-api:${slf4jVersion}"
-	testImplementation project(path: ':css4j', configuration: 'tests')
+	api('org.slf4j:slf4j-api') {
+		version {
+			require '[1.7.28,)'
+			prefer '1.7.32'
+		}
+	}
+	testImplementation(group: 'io.sf.carte', name: 'css4j', classifier: 'tests') {
+		version {
+			strictly '[3.4.0,4.0['
+			prefer '3.6.0'
+		}
+	}
+	testImplementation 'junit:junit:4.13.1'
 }
 
 extraJavaModuleInfo {
 	failOnMissingModuleInfo.set(false)
-	automaticModule("htmlparser-${htmlparserVersion}.jar", 'htmlparser')
-}
-
-description = 'css4j-agent'
-
-compileJava.dependsOn tasks.jvmVersionAttribute
-
-publishing.publications.maven(MavenPublication).pom {
-	description = "CSS4J agent module"
+	automaticModule('htmlparser-1.4.16.jar', 'htmlparser')
 }
 
 java {
+	sourceCompatibility = JavaVersion.VERSION_1_8
+	targetCompatibility = JavaVersion.VERSION_1_8
 	withJavadocJar()
+	withSourcesJar()
+}
+
+repositories {
+	maven {
+		url = uri('https://repo.maven.apache.org/maven2/')
+	}
+	maven {
+		url "https://css4j.github.io/maven/"
+		mavenContent {
+			releasesOnly()
+		}
+		content {
+			includeGroup 'io.sf.carte'
+			includeGroup 'io.sf.jclf'
+		}
+	}
+}
+
+sourceSets {
+	main {
+		java {
+			srcDirs = ['src']
+			includes += ["**/*.java"]
+		}
+		resources {
+			srcDirs = ['src']
+			excludes += ["**/*.java"]
+		}
+	}
+	test {
+		java {
+			srcDirs = ['junit']
+			includes += ["**/*.java"]
+		}
+		resources {
+			srcDirs = ['junit']
+			excludes += ["**/*.java"]
+		}
+	}
+}
+
+tasks.compileJava {
+	excludes += ['module-info.java']
+	modularity.inferModulePath = false
+}
+
+tasks.register('compileModuleInfo', JavaCompile) {
+	description = 'Compile module-info to Java 11 bytecode'
+	dependsOn tasks.compileJava
+	sourceCompatibility = JavaVersion.VERSION_11
+	targetCompatibility = JavaVersion.VERSION_11
+	source = sourceSets.main.java
+	classpath = sourceSets.main.compileClasspath
+	destinationDirectory = sourceSets.main.java.destinationDirectory
+	modularity.inferModulePath = true
+	includes = ['module-info.java']
+}
+
+classes.dependsOn compileModuleInfo
+
+// Check bytecode version, in case some other task screws it
+tasks.register('checkLegacyJava') {
+	description = 'Check that classes are Java 8 bytecode (except module-info)'
+	def classdir = sourceSets.main.output.classesDirs.files.stream().findAny().get()
+	def classfiles = fileTree(classdir).matching({it.exclude('module-info.class')}).files
+	doFirst() {
+		if (!classfiles.isEmpty()) {
+			def classfile = classfiles.stream().findAny().get()
+			if (classfile != null) {
+				def classbytes = classfile.bytes
+				def bcversion = classbytes[6] * 128 + classbytes[7]
+				if (bcversion != 52) {
+					throw new GradleException("Bytecode on " + classfile +
+							" is not valid Java 8. Version should be 52, instead is " + bcversion)
+				}
+			}
+		}
+	}
+}
+
+classes.finalizedBy checkLegacyJava
+
+tasks.register('lineEndingConversion', CRLFConvert) {
+	file "$rootDir/LICENSE.txt"
+	file "$rootDir/LICENSES.txt"
+	file "$rootDir/CHANGES.txt"
+	file "$rootDir/RELEASE_NOTES.txt"
+}
+
+tasks.withType(JavaCompile) {
+	options.encoding = 'UTF-8'
+}
+
+tasks.withType(Javadoc) {
+	failOnError false
+	options.addStringOption('Xdoclint:none', '-quiet')
+	options.addStringOption('encoding', 'UTF-8')
+	options.addStringOption('charset', 'UTF-8')
+	options.links 'https://docs.oracle.com/en/java/javase/11/docs/api/'
+}
+
+// Reproducible build
+tasks.withType(AbstractArchiveTask).configureEach {
+	preserveFileTimestamps = false
+	reproducibleFileOrder = true
+}
+
+tasks.withType(PublishToMavenRepository) { task ->
+	doFirst {
+		if (repository == publishing.repositories.getByName('mavenRepo')) {
+			logger.lifecycle "Deploying artifacts to \"${it.repository.url}\""
+		}
+	}
+}
+
+publishing {
+	publications {
+		maven(MavenPublication) {
+			description = 'css4j agent module'
+			from(components.java)
+			pom {
+				description = 'css4j agent module'
+				url = "https://github.com/css4j/css4j-agent/"
+				licenses {
+					license {
+						name = "BSD 3-clause license"
+						url = "https://css4j.github.io/LICENSE.txt"
+					}
+				}
+			}
+		}
+	}
+	repositories {
+		maven {
+			name = 'mavenRepo'
+			/*
+			 * The following section applies to the 'publish' task:
+			 *
+			 * If you plan to deploy to a repository, please configure the
+			 * 'mavenReleaseRepoUrl' and/or 'mavenSnapshotRepoUrl' properties
+			 * (for example in GRADLE_USER_HOME/gradle.properties).
+			 *
+			 * Otherwise, Gradle shall create a 'build/repository' subdirectory
+			 * at ${rootDir} and deploy there.
+			 *
+			 * Properties 'mavenRepoUsername' and 'mavenRepoPassword' can also
+			 * be set (generally from command line).
+			 */
+			def releasesUrl
+			def snapshotsUrl
+			if (project.hasProperty('mavenReleaseRepoUrl') && project.mavenReleaseRepoUrl) {
+				releasesUrl = mavenReleaseRepoUrl
+			} else {
+				releasesUrl = "${buildDir}/repository/releases"
+			}
+			if (project.hasProperty('mavenSnapshotRepoUrl') && project.mavenSnapshotRepoUrl) {
+				snapshotsUrl = mavenSnapshotRepoUrl
+			} else {
+				snapshotsUrl = "${buildDir}/repository/snapshots"
+			}
+			url = version.endsWith('-SNAPSHOT') ? snapshotsUrl : releasesUrl
+			if (project.hasProperty('mavenRepoUsername') &&
+					project.hasProperty('mavenRepoPassword')) {
+				credentials.username = mavenRepoUsername
+				credentials.password = mavenRepoPassword
+			}
+		}
+	}
 }
