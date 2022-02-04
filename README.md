@@ -1,7 +1,19 @@
 # css4j - agent module
 
-This provides user agent-related functionality to CSS4J. Licence is BSD 3-clause, but includes a file with another licence
-(see `LICENSES.txt`).
+This provides user agent-related functionality to CSS4J.
+
+[License](LICENSE.txt) is BSD 3-clause, but includes a file with another license
+(see [`LICENSES.txt`](LICENSES.txt)).
+
+<br/>
+
+## Java™ Runtime Environment requirements
+All the classes in the binary package have been compiled with a [Java compiler](https://adoptium.net/)
+set to 1.8 compiler compliance level, except the `module-info.java` file.
+
+Building this module requires JDK 11 or higher.
+
+<br/>
 
 ## Build from source
 To build css4j-agent from the code that is currently at the Git repository, Java 11 or later is needed.
@@ -42,6 +54,31 @@ dependencies {
 }
 ```
 where `css4jAgentVersion` would be defined in a `gradle.properties` file.
+
+<br/>
+
+## Software dependencies
+
+In case that you do not use a Gradle or Maven build (which would manage the
+dependencies according to the relevant `.module` or `.pom` files), the required
+and optional library packages are the following:
+
+### Compile-time dependencies
+
+- The [css4j](https://github.com/css4j/css4j/releases) library (and its transitive
+  dependencies); version 3.7.0 or higher is recommended (compatibility with 4.0 or
+  higher is likely but not guaranteed).
+
+- The [xml-dtd](https://github.com/css4j/xml-dtd) library; version 3.5.2 or
+  higher is recommended.
+
+- The [validator.nu html5 parser](https://about.validator.nu/htmlparser/).
+
+- [SLF4J](http://www.slf4j.org/), which is a logging package.
+
+### Test dependencies
+
+- A recent version of [JUnit 4](https://junit.org/junit4/).
 
 <br/>
 
