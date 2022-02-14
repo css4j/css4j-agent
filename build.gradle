@@ -5,21 +5,21 @@ plugins {
 }
 
 group = 'io.sf.carte'
-version = '3.6.0'
+version = '3.7.0'
 
 description = 'css4j-agent'
 
 dependencies {
 	api('io.sf.carte:css4j') {
 		version {
-			strictly '[3.4.0,4.0['
-			prefer '3.7.0'
+			strictly '[3.4.0,)'
+			prefer '3.7.1'
 		}
 	}
 	api('io.sf.carte:xml-dtd') {
 		version {
 			require '[3.4.0,)'
-			prefer '3.5.2'
+			prefer '4.0.0'
 		}
 	}
 	api 'nu.validator:htmlparser:1.4.16'
@@ -31,16 +31,16 @@ dependencies {
 	api('org.slf4j:slf4j-api') {
 		version {
 			require '[1.7.28,)'
-			prefer '1.7.32'
+			prefer '1.7.35'
 		}
 	}
 	testImplementation(group: 'io.sf.carte', name: 'css4j', classifier: 'tests') {
 		version {
-			strictly '[3.4.0,4.0['
-			prefer '3.7.0'
+			strictly '[3.4.0,)'
+			prefer '3.7.1'
 		}
 	}
-	testImplementation 'junit:junit:4.13.1'
+	testImplementation 'junit:junit:4.13.2'
 }
 
 extraJavaModuleInfo {
@@ -158,11 +158,11 @@ tasks.withType(JavaCompile) {
 }
 
 tasks.withType(Javadoc) {
-	failOnError false
 	options.addStringOption('Xdoclint:none', '-quiet')
 	options.addStringOption('encoding', 'UTF-8')
 	options.addStringOption('charset', 'UTF-8')
 	options.links 'https://docs.oracle.com/en/java/javase/11/docs/api/'
+	options.links 'https://css4j.github.io/api/3/'
 }
 
 tasks.withType(AbstractArchiveTask).configureEach {
