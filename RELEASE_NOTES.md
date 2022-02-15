@@ -1,6 +1,6 @@
 # css4j-agent version 3.7.0 Release Notes
 
-### TBD
+### February 15, 2022
 
 <br/>
 
