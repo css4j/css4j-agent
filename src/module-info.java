@@ -9,6 +9,10 @@
 
  */
 
+/**
+ * A simple implementation for CSS4J user agent functionality, allowing cookie
+ * management when retrieving documents and resources.
+ */
 module io.sf.carte.css4j.agent.net {
 	exports io.sf.carte.doc.agent.net;
 
