@@ -178,7 +178,7 @@ tasks.withType(AbstractArchiveTask).configureEach {
 	from ("$buildDir/tmp/crlf/LICENSE.txt") {
 		into 'META-INF'
 	}
-	from ("$buildDir/tmp/crlf/LICENSES.txt") {
+	from ("$buildDir/tmp/crlf/NOTICE.txt") {
 		into 'META-INF'
 	}
 }
