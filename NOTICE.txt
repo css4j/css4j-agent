@@ -1,3 +1,6 @@
+The use and distribution of this software is legally governed by the license
+found in the LICENSE.txt file, with the exception of the following files:
+
 ================================================================================
  File: src/io/sf/carte/doc/agent/public_suffix_list.dat
 ================================================================================
