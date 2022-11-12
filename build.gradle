@@ -13,7 +13,7 @@ dependencies {
 	api('io.sf.carte:css4j') {
 		version {
 			strictly '[3.4.0,)'
-			prefer '3.8.0'
+			prefer '3.9.0'
 		}
 	}
 	api('io.sf.carte:xml-dtd') {
@@ -31,15 +31,10 @@ dependencies {
 	api('org.slf4j:slf4j-api') {
 		version {
 			require '[1.7.28,)'
-			prefer '2.0.0'
+			prefer '2.0.3'
 		}
 	}
-	testImplementation(group: 'io.sf.carte', name: 'css4j', classifier: 'tests') {
-		version {
-			strictly '[3.4.0,)'
-			prefer '3.8.0'
-		}
-	}
+	testImplementation group: 'io.sf.carte', name: 'css4j', classifier: 'tests', version: '3.9.0'
 	testImplementation 'junit:junit:4.13.2'
 }
 
