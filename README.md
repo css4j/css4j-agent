@@ -3,7 +3,7 @@
 This provides user agent-related functionality to CSS4J.
 
 [License](LICENSE.txt) is BSD 3-clause, but includes a file with another license
-(see [`LICENSES.txt`](LICENSES.txt)).
+(see [`NOTICE.txt`](NOTICE.txt)).
 
 <br/>
 
