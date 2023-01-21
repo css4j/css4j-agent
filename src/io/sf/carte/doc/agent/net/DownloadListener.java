@@ -27,21 +27,21 @@ public interface DownloadListener<C> {
 	 * @param content
 	 *            the content, in a native object.
 	 */
-	public void doContentDownloaded(C content);
+	void doContentDownloaded(C content);
 
 	/**
 	 * Notifies a failed download.
 	 *
 	 */
-	public void doFailedDownload();
+	void doFailedDownload();
 
 	/**
 	 * Gets the content, put into a native object.
 	 * 
 	 * @return the downloaded content.
 	 */
-	public C getNativeContent();
+	C getNativeContent();
 
-	public CSSDocument getDocument();
+	CSSDocument getDocument();
 
 }

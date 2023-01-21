@@ -28,7 +28,7 @@ public interface ResourceAgent<C,U> {
 	 * @param url the source to be downloaded.
 	 * @return the downloader for the source.
 	 */
-	public ResourceDownloader<C> download(U url);
+	ResourceDownloader<C> download(U url);
 
 	/**
 	 * Adds a download listener for asynchronous retrieval of resources 
@@ -39,7 +39,7 @@ public interface ResourceAgent<C,U> {
 	 * @param url the source to download from.
 	 * @param listener the download listener.
 	 */
-	public void addDownloadListener(U url, DownloadListener<C> listener);
+	void addDownloadListener(U url, DownloadListener<C> listener);
 
 	/**
 	 * Gets the resource downloader for the given source, creating one if 
@@ -48,6 +48,6 @@ public interface ResourceAgent<C,U> {
 	 * @param url the source.
 	 * @return the resource downloader.
 	 */
-	public ResourceDownloader<C> getResourceDownloader(U url);
+	ResourceDownloader<C> getResourceDownloader(U url);
 
 }
