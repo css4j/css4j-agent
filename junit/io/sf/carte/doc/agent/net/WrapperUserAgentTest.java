@@ -11,9 +11,9 @@
 
 package io.sf.carte.doc.agent.net;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -23,8 +23,8 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.w3c.dom.DOMStringList;
 
 import io.sf.carte.doc.DocumentException;
@@ -38,7 +38,7 @@ public class WrapperUserAgentTest {
 	TestCSSStyleSheetFactory factory;
 	WrapperUserAgent agent;
 
-	@Before
+	@BeforeEach
 	public void setUp() throws DocumentException, ParserConfigurationException {
 		factory = new TestCSSStyleSheetFactory();
 		agent = factory.getUserAgent();
