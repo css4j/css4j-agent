@@ -65,7 +65,7 @@ and optional library packages are the following:
 ### Compile-time dependencies
 
 - The [css4j](https://github.com/css4j/css4j/releases) library (and its transitive
-  dependencies); version 3.9.1 or higher is recommended (compatibility with 4.0 or
+  dependencies); version 4.0 or higher is recommended (compatibility with 5.0 or
   higher is likely but not guaranteed).
 
 - The [xml-dtd](https://github.com/css4j/xml-dtd) library; version 4.1.1 or
