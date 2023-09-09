@@ -51,11 +51,14 @@ public class DefaultUserAgent extends AbstractUserAgent {
 	private static final long serialVersionUID = 1L;
 
 	private final CSSDOMImplementation domImpl;
+
 	private EntityResolver resolver = createEntityResolver();
 
 	protected DefaultUserAgent(EnumSet<Parser.Flag> parserFlags, boolean setDefaultSheet) {
 		super(parserFlags);
+
 		setOriginPolicy(DefaultOriginPolicy.getInstance());
+
 		domImpl = new MyDOMImplementation(getParserFlags());
 		if (setDefaultSheet) {
 			domImpl.setDefaultHTMLUserAgentSheet();
@@ -111,12 +114,12 @@ public class DefaultUserAgent extends AbstractUserAgent {
 	@Override
 	public DOMDocument readURL(URL url) throws IOException, io.sf.carte.doc.DocumentException {
 		long time = System.currentTimeMillis();
+
 		URLConnection con = openConnection(url, time);
 		con.connect();
 		String conType = con.getContentType();
 		String contentEncoding = con.getContentEncoding();
-		InputStream is = null;
-		MyDocument htmlDoc = null;
+
 		boolean isHtml = true;
 		if (conType != null) {
 			String mimeType;
@@ -128,6 +131,7 @@ public class DefaultUserAgent extends AbstractUserAgent {
 			}
 			isHtml = mimeType.equals("text/html");
 		}
+
 		XMLDocumentBuilder builder = new XMLDocumentBuilder(domImpl);
 		if (isHtml) {
 			HtmlParser parser = new HtmlParser(XmlViolationPolicy.ALTER_INFOSET);
@@ -139,8 +143,9 @@ public class DefaultUserAgent extends AbstractUserAgent {
 			builder.setIgnoreElementContentWhitespace(true);
 			builder.setEntityResolver(resolver);
 		}
-		try {
-			is = openInputStream(con);
+
+		MyDocument htmlDoc = null;
+		try (InputStream is = openInputStream(con);) {
 			InputSource source = new InputSource(AgentUtil.inputStreamToReader(is, conType, contentEncoding,
 					StandardCharsets.UTF_8));
 			htmlDoc = (MyDocument) builder.parse(source);
@@ -148,13 +153,11 @@ public class DefaultUserAgent extends AbstractUserAgent {
 			throw e;
 		} catch (SAXException e) {
 			throw new DocumentException("Error parsing HTML document at " + url.toExternalForm(), e);
-		} finally {
-			if (is != null) {
-				is.close();
-			}
 		}
+
 		htmlDoc.setDocumentURI(url.toExternalForm());
 		htmlDoc.setLoadingTime(time);
+
 		// Check for preferred style
 		String defStyle = con.getHeaderField("Default-Style");
 		NodeList list = htmlDoc.getElementsByTagName("meta");
@@ -173,17 +176,20 @@ public class DefaultUserAgent extends AbstractUserAgent {
 		if (defStyle != null) {
 			htmlDoc.setSelectedStyleSheetSet(defStyle);
 		}
+
 		// Referrer Policy
 		String referrerPolicy = con.getHeaderField("Referrer-Policy");
 		if (referrerPolicy != null) {
 			htmlDoc.setReferrerPolicyHeader(referrerPolicy);
 		}
+
 		// Read cookies and close connection, if appropriate
 		if (con instanceof HttpURLConnection) {
 			HttpURLConnection hcon = (HttpURLConnection) con;
 			readCookies(hcon, time);
 			hcon.disconnect();
 		}
+
 		return (DOMDocument) htmlDoc;
 	}
 
