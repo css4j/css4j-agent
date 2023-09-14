@@ -34,9 +34,9 @@ public class DefaultOriginPolicy implements OriginPolicy {
 	private static final List<String> SUFFIX_WILDCARDS;
 
 	static {
-		TOP_LEVEL_SUFFIX = new ArrayList<String>();
-		SUFFIX_EXCEPTIONS = new ArrayList<String>();
-		SUFFIX_WILDCARDS = new ArrayList<String>();
+		TOP_LEVEL_SUFFIX = new ArrayList<>();
+		SUFFIX_EXCEPTIONS = new ArrayList<>();
+		SUFFIX_WILDCARDS = new ArrayList<>();
 		readSuffixes();
 	}
 

@@ -37,7 +37,7 @@ abstract public class ResourceDownloader<C> extends Thread {
 
 	private final URL url;
 	protected C nativeContent = null;
-	protected List<DownloadListener<C>> listeners = new LinkedList<DownloadListener<C>>();
+	protected List<DownloadListener<C>> listeners = new LinkedList<>();
 	private String contentType = null;
 	private boolean done = false;
 
@@ -75,7 +75,7 @@ abstract public class ResourceDownloader<C> extends Thread {
 				return new URL[]{url};
 			}
 		} else if (type == CSSValue.CssType.LIST) {
-			LinkedList<URL> urlist = new LinkedList<URL>();
+			LinkedList<URL> urlist = new LinkedList<>();
 			ValueList list = (ValueList) src;
 			for (int i = 0; i < list.getLength(); i++) {
 				URL[] url = extractURL(list.item(i));
