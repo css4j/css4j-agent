@@ -78,10 +78,10 @@ abstract public class ResourceDownloader<C> extends Thread {
 			LinkedList<URL> urlist = new LinkedList<>();
 			ValueList list = (ValueList) src;
 			for (int i = 0; i < list.getLength(); i++) {
-				URL[] url = extractURL(list.item(i));
-				if (url != null) {
-					for (int j = 0; j < url.length; j++) {
-						urlist.add(url[j]);
+				URL[] urls = extractURL(list.item(i));
+				if (urls != null) {
+					for (URL url : urls) {
+						urlist.add(url);
 					}
 				}
 			}
