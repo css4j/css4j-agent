@@ -35,7 +35,7 @@ dependencies {
 		}
 	}
 	testImplementation group: 'io.sf.carte', name: 'css4j', classifier: 'tests', version: '4.2.2'
-	testImplementation 'org.junit.jupiter:junit-jupiter:5.10.1'
+	testImplementation 'org.junit.jupiter:junit-jupiter:5.10.3'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
