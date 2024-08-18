@@ -13,13 +13,13 @@ dependencies {
 	api('io.sf.carte:css4j') {
 		version {
 			strictly '[3.4.0,)'
-			prefer '4.2.2'
+			prefer '4.3.1'
 		}
 	}
 	api('io.sf.carte:xml-dtd') {
 		version {
 			require '[4.0.0,)'
-			prefer '4.2.1'
+			prefer '4.3'
 		}
 	}
 	api 'nu.validator:htmlparser:1.4.16'
@@ -34,7 +34,7 @@ dependencies {
 			prefer '2.0.13'
 		}
 	}
-	testImplementation group: 'io.sf.carte', name: 'css4j', classifier: 'tests', version: '4.2.2'
+	testImplementation group: 'io.sf.carte', name: 'css4j', classifier: 'tests', version: '4.3.1'
 	testImplementation 'org.junit.jupiter:junit-jupiter:5.11.0'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
