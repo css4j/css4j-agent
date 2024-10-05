@@ -1,6 +1,6 @@
-# css4j-agent version 4.0 Release Notes
+# css4j-agent version 5.0 Release Notes
 
-### March 30, 2023
+### October 5, 2024
 
 <br/>
 
@@ -15,8 +15,18 @@ Updated Public Suffix List.
 ## Detail of changes
 
 - Update to latest public suffix list.
-- Upgrade to css4j 4.0
-- Upgrade to slf4j-api 2.0.7
-- Upgrade to extra-java-module-info 1.3
-- Upgrade Gradle wrapper to 8.0.2
-- Tests: convert the tests to JUnit 5.
+- Use diamond operator.
+- Small refactor in `DefaultUserAgent`.
+- Use advanced for loop in `ResourceDownloader`.
+- Add scm section to Maven POM data.
+- Prefer css4j 5.0.
+- Upgrade to xml-dtd 4.3.
+- Upgrade JUnit to version 5.11.1.
+- Use slf4j 2.0.16.
+- Upgrade to extra-java-module-info version 1.9.
+- Upgrade to actions/checkout@v4.
+- Upgrade to actions/setup-java v4.
+- Gradle: switch to gradle/actions/wrapper-validation.
+- Upgrade Gradle wrapper to 8.10.2.
+- Default to Linux line endings for source files.
+- Bump copyright year to 2024.

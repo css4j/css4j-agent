@@ -38,13 +38,17 @@ repositories {
             releasesOnly()
         }
         content {
-            includeGroup 'io.sf.carte'
-            includeGroup 'io.sf.jclf'
+            // Include all the groups used by popular io.sf.* projects
+            includeGroupByRegex 'io\\.sf\\..*'
+
+            // Alternatively:
+            //includeGroup 'io.sf.carte'
+            //includeGroup 'io.sf.jclf'
         }
     }
 }
 ```
-please use this repository **only** for the artifact groups listed in the `includeGroup` statements.
+please use this repository only for the artifact groups listed in the `includeGroup` statements.
 
 Then, in your `build.gradle` file:
 ```groovy
@@ -65,8 +69,7 @@ and optional library packages are the following:
 ### Compile-time dependencies
 
 - The [css4j](https://github.com/css4j/css4j/releases) library (and its transitive
-  dependencies); version 4.0 or higher is recommended (compatibility with 5.0 or
-  higher is likely but not guaranteed).
+  dependencies); version 5.0 or higher is recommended.
 
 - The [xml-dtd](https://github.com/css4j/xml-dtd) library; version 4.1.1 or
   higher is recommended.
