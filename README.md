@@ -33,7 +33,7 @@ your build file:
 ```groovy
 repositories {
     maven {
-        url "https://css4j.github.io/maven/"
+        url = "https://css4j.github.io/maven/"
         mavenContent {
             releasesOnly()
         }
