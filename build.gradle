@@ -136,12 +136,12 @@ tasks.register('checkLegacyJava') {
 classes.finalizedBy checkLegacyJava
 
 tasks.register('lineEndingConversion', CRLFConvert) {
-	description 'Convert top-level files to Windows line endings'
+	description = 'Convert top-level files to Windows line endings'
 	file "$rootDir/RELEASE_NOTES.md"
 }
 
 tasks.register('lineEndingConvCopy', CRLFConvertCopy) {
-	description 'Convert LICENSE and NOTICE to Windows line endings'
+	description = 'Convert LICENSE and NOTICE to Windows line endings'
 	from "$rootDir/LICENSE.txt"
 	from "$rootDir/NOTICE.txt"
 }
