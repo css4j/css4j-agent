@@ -13,7 +13,6 @@ package io.sf.carte.doc.agent.net;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -46,7 +45,9 @@ public class DefaultOriginPolicy implements OriginPolicy {
 
 	private static void readSuffixes() {
 		BufferedReader re = new BufferedReader(new InputStreamReader(
-				openStream("/io/sf/carte/doc/agent/net/public_suffix_list.dat"), StandardCharsets.UTF_8));
+				DefaultOriginPolicy.class
+						.getResourceAsStream("/io/sf/carte/doc/agent/net/public_suffix_list.dat"),
+				StandardCharsets.UTF_8));
 		String line = null;
 		try {
 			while ((line = re.readLine()) != null) {
@@ -69,15 +70,6 @@ public class DefaultOriginPolicy implements OriginPolicy {
 			} catch (IOException e) {
 			}
 		}
-	}
-
-	private static InputStream openStream(final String fileName) {
-		return java.security.AccessController.doPrivileged(new java.security.PrivilegedAction<InputStream>() {
-			@Override
-			public InputStream run() {
-				return DefaultOriginPolicy.class.getResourceAsStream(fileName);
-			}
-		});
 	}
 
 	private static class DefaultOriginPolicyHolder {
