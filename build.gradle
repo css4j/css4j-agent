@@ -135,11 +135,6 @@ tasks.register('checkLegacyJava') {
 
 classes.finalizedBy checkLegacyJava
 
-tasks.register('lineEndingConversion', CRLFConvert) {
-	description = 'Convert top-level files to Windows line endings'
-	file "$rootDir/RELEASE_NOTES.md"
-}
-
 tasks.register('lineEndingConvCopy', CRLFConvertCopy) {
 	description = 'Convert LICENSE and NOTICE to Windows line endings'
 	from "$rootDir/LICENSE.txt"
@@ -182,8 +177,6 @@ tasks.withType(AbstractArchiveTask).configureEach {
 		into 'META-INF'
 	}
 }
-
-build.dependsOn lineEndingConversion
 
 tasks.withType(PublishToMavenRepository) { task ->
 	doFirst {
