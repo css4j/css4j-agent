@@ -183,10 +183,9 @@ public class DefaultUserAgent extends AbstractUserAgent {
 			htmlDoc.setReferrerPolicyHeader(referrerPolicy);
 		}
 
-		// Read cookies and close connection, if appropriate
+		// Close connection if appropriate
 		if (con instanceof HttpURLConnection) {
 			HttpURLConnection hcon = (HttpURLConnection) con;
-			readCookies(hcon, time);
 			hcon.disconnect();
 		}
 
