@@ -16,7 +16,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -49,9 +50,10 @@ public class WrapperUserAgentTest {
 	}
 
 	@Test
-	public void getSelectedStyleSheetSet() throws MalformedURLException, IOException, DocumentException {
+	public void getSelectedStyleSheetSet()
+			throws IOException, DocumentException, URISyntaxException {
 		WrapperUserAgent agent = factory.getUserAgent();
-		CSSDocument doc = agent.readURL(new URL(MockURLConnectionFactory.SAMPLE_URL));
+		CSSDocument doc = agent.readURL(new URI(MockURLConnectionFactory.SAMPLE_URL).toURL());
 		assertNotNull(doc);
 		assertEquals("http://www.example.com/", doc.getBaseURI());
 		assertEquals(MockURLConnectionFactory.SAMPLE_URL, doc.getDocumentURI());
@@ -69,8 +71,9 @@ public class WrapperUserAgentTest {
 	}
 
 	@Test
-	public void getSelectedStyleSheetSetHeader() throws IOException, DocumentException {
-		URL url = new URL("http://www.example.com/xhtml/htmlsample.html");
+	public void getSelectedStyleSheetSetHeader()
+			throws IOException, DocumentException, URISyntaxException {
+		URL url = new URI("http://www.example.com/xhtml/htmlsample.html").toURL();
 		factory.getConnectionFactory().setHeader("html", "Default-Style", "Alter 2");
 		CSSDocument xhtmlDoc = agent.readURL(url);
 		DOMStringList list = xhtmlDoc.getStyleSheetSets();
@@ -86,10 +89,10 @@ public class WrapperUserAgentTest {
 	}
 
 	@Test
-	public void getSelectedStyleSheetSetMeta() throws IOException, DocumentException {
-		URL url = new URL("http://www.example.com/xhtml/meta-default-style.html");
-		factory.getConnectionFactory().registerURL(url.toExternalForm(),
-				"meta-default-style.html");
+	public void getSelectedStyleSheetSetMeta()
+			throws IOException, DocumentException, URISyntaxException {
+		URL url = new URI("http://www.example.com/xhtml/meta-default-style.html").toURL();
+		factory.getConnectionFactory().registerURL(url.toExternalForm(), "meta-default-style.html");
 		CSSDocument xhtmlDoc = agent.readURL(url);
 		DOMStringList list = xhtmlDoc.getStyleSheetSets();
 		assertEquals(3, list.getLength());
@@ -110,8 +113,9 @@ public class WrapperUserAgentTest {
 	 * earlier than the document HEAD for this purpose."
 	 */
 	@Test
-	public void getSelectedStyleSheetSetMetaOverride() throws IOException, DocumentException {
-		URL url = new URL("http://www.example.com/xhtml/meta-default-style.html");
+	public void getSelectedStyleSheetSetMetaOverride()
+			throws IOException, DocumentException, URISyntaxException {
+		URL url = new URI("http://www.example.com/xhtml/meta-default-style.html").toURL();
 		MockURLConnectionFactory connFactory = factory.getConnectionFactory();
 		connFactory.registerURL(url.toExternalForm(), "meta-default-style.html");
 		connFactory.setHeader("html", "Default-Style", "Alter 2");

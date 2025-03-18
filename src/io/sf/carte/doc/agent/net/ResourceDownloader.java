@@ -13,6 +13,7 @@ package io.sf.carte.doc.agent.net;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.Iterator;
@@ -39,7 +40,7 @@ abstract public class ResourceDownloader<C> extends Thread {
 	protected C nativeContent = null;
 	protected List<DownloadListener<C>> listeners = new LinkedList<>();
 	private String contentType = null;
-	private boolean done = false;
+	private volatile boolean done = false;
 
 	protected ResourceDownloader(URL url) {
 		this.url = url;
@@ -68,7 +69,7 @@ abstract public class ResourceDownloader<C> extends Thread {
 				CSSTypedValue typed = (CSSTypedValue) src;
 				URL url;
 				try {
-					url = new URL(typed.getStringValue());
+					url = new URI(typed.getStringValue()).toURL();
 				} catch (Exception e) {
 					throw new IllegalArgumentException("Bad URL to download font", e);
 				}
