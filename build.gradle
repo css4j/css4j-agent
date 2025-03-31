@@ -31,7 +31,7 @@ dependencies {
 	api('org.slf4j:slf4j-api') {
 		version {
 			require '[1.7.28,)'
-			prefer '2.0.16'
+			prefer '2.0.17'
 		}
 	}
 	testImplementation group: 'io.sf.carte', name: 'css4j', classifier: 'tests', version: '5.2'
