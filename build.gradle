@@ -13,7 +13,7 @@ dependencies {
 	api('io.sf.carte:css4j') {
 		version {
 			strictly '[5.3,)'
-			prefer '5.3'
+			prefer '5.3.1'
 		}
 	}
 	api('io.sf.carte:xml-dtd') {
@@ -34,7 +34,7 @@ dependencies {
 			prefer '2.0.17'
 		}
 	}
-	testImplementation group: 'io.sf.carte', name: 'css4j', classifier: 'tests', version: '5.3'
+	testImplementation group: 'io.sf.carte', name: 'css4j', classifier: 'tests', version: '5.3.1'
 	testImplementation 'org.junit.jupiter:junit-jupiter:5.12.2'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
