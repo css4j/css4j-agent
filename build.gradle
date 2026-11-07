@@ -12,6 +12,7 @@
 plugins {
 	id 'java-library'
 	id 'maven-publish'
+	id 'signing'
 	id 'org.gradlex.extra-java-module-info' version '1.14.2'
 }
 
@@ -19,6 +20,8 @@ group = 'io.sf.carte'
 version = '6.1-SNAPSHOT'
 
 description = 'css4j-agent'
+
+ext.isReleaseVersion = !version.endsWith("SNAPSHOT")
 
 dependencies {
 	api('io.sf.carte:css4j') {
@@ -254,4 +257,21 @@ publishing {
 			}
 		}
 	}
+}
+
+signing {
+	required = { isReleaseVersion && gradle.taskGraph.hasTask("publish") }
+	def signingKeyId = findProperty('SIGNINGKEYID')
+	def signingPassword = findProperty('signingPassword')
+	def signingKey
+	if (System.env['ORG_GRADLE_PROJECT_SIGNINGKEY'] != null) {
+		signingKey = findProperty('SIGNINGKEY')
+	} else {
+		def signingKeyFile = findProperty('signingSecretKeyFile')
+		if (signingKeyFile != null) {
+			signingKey = file(signingKeyFile).getText()
+		}
+	}
+	useInMemoryPgpKeys(signingKeyId, signingKey, signingPassword)
+	sign publishing.publications.maven
 }
